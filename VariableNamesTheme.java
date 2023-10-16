@@ -1,6 +1,6 @@
 public class VariableNamesTheme {
     public static void main(String[] args) {
-        // 1.Разные переменные
+        System.out.println("\n1. Разные переменные");
         // цифра
         byte number = 5;
         // сумма чисел
@@ -59,7 +59,6 @@ public class VariableNamesTheme {
         String pathFile = "C:/StartJava";
         // количество чисел в каждой строке
         byte countNumbersEachRow = 25;
-        System.out.println("\n1. Разные переменные");
         System.out.println("цифра = " + number);
         System.out.println("сумма чисел = " + sumNumbers);
         System.out.println("произведение цифр = " + multiplicationNumbers);
@@ -90,7 +89,7 @@ public class VariableNamesTheme {
         System.out.println("путь до файла = " + pathFile);
         System.out.println("количество чисел в каждой строке = " + countNumbersEachRow);
 
-        // 2. boolean-переменные
+        System.out.println("\n2. boolean-переменные");
         // сотни равны?;
         boolean equalHundreds = false;
         // компьютер включен?
@@ -109,7 +108,6 @@ public class VariableNamesTheme {
         boolean actualEmail = true;
         // имеются уникальные строки?
         boolean uniqueRows = false;
-        System.out.println("\n2. boolean-переменные");
         System.out.println("сотни равны? " + equalHundreds);
         System.out.println("компьютер включен? " + running);
         System.out.println("есть равные цифры? " + equalNumbers);
@@ -120,7 +118,7 @@ public class VariableNamesTheme {
         System.out.println("электронная почта действительная? " + actualEmail);
         System.out.println("имеются уникальные строки? " + uniqueRows);
 
-        // 3. Аббревиатуры
+        System.out.println("\n3. Аббревиатуры");
         // старый universally unique identifier
         String oldUuid = "UUID";
         // производитель оперативной памяти
@@ -135,7 +133,6 @@ public class VariableNamesTheme {
         String newClientId = "ClientID";
         // кодировка american standard code for information interchange
         String encodingAscii = "ASCII";
-        System.out.println("\n3. Аббревиатуры");
         System.out.println("старый universally unique identifier = " + oldUuid);
         System.out.println("производитель оперативной памяти = " + manufactureRam);
         System.out.println("емкость жесткого диска = " + capacityHdd);
@@ -143,6 +140,6 @@ public class VariableNamesTheme {
         System.out.println("сокращенный uniform resource locator = " + abbreviatedUrl);
         System.out.println("новый идентификатор клиент = " + newClientId);
         System.out.println("кодировка american standard code for information interchange = " 
-            + encodingAscii);
+                + encodingAscii);
     }
 }
