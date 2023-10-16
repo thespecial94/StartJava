@@ -46,7 +46,6 @@ public class VariablesTheme {
         short maxShortValue = 32767;
         int maxIntValue = 2147483647;
         long maxLongValue = 9223372036854775807L;
-
         System.out.println("\n4. Вывод min и max значений целых числовых типов");
         System.out.println("Вывод значений типа byte");
         System.out.println("первоначальное значение = " + maxByteValue);
