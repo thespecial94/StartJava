@@ -127,8 +127,8 @@ public class VariablesTheme {
         //8. Вывод количества сотен, десятков и единиц числа
         int num = 123;
         int numOnes = num % 10;
-        int numTens = (num/10) % 10;
-        int numHundreds = num/100;
+        int numTens = (num / 10) % 10;
+        int numHundreds = num / 100;
         sum = numHundreds + numOnes + numTens;
         int multiplication = numHundreds * numOnes * numTens;
         System.out.println("\n8. Вывод количества сотен, десятков и единиц числа");
