@@ -59,7 +59,7 @@ public class VariableNamesTheme {
         String pathFile = "C:/StartJava";
         // количество чисел в каждой строке
         byte countNumbersEachRow = 25;
-        System.out.println("1. Разные переменные");
+        System.out.println("\n1. Разные переменные");
         System.out.println("цифра = " + number);
         System.out.println("сумма чисел = " + sumNumbers);
         System.out.println("произведение цифр = " + multiplicationNumbers);
@@ -89,7 +89,6 @@ public class VariableNamesTheme {
         System.out.println("счетчик = " + counter);
         System.out.println("путь до файла = " + pathFile);
         System.out.println("количество чисел в каждой строке = " + countNumbersEachRow);
-        System.out.println();
 
         // 2. boolean-переменные
         // сотни равны?;
@@ -110,6 +109,7 @@ public class VariableNamesTheme {
         boolean actualEmail = true;
         // имеются уникальные строки?
         boolean uniqueRows = false;
+        System.out.println("\n2. boolean-переменные");
         System.out.println("сотни равны? " + equalHundreds);
         System.out.println("компьютер включен? " + running);
         System.out.println("есть равные цифры? " + equalNumbers);
@@ -119,31 +119,30 @@ public class VariableNamesTheme {
         System.out.println("новый? " + newest);
         System.out.println("электронная почта действительная? " + actualEmail);
         System.out.println("имеются уникальные строки? " + uniqueRows);
-        System.out.println();
 
         // 3. Аббревиатуры
         // старый universally unique identifier
-        String uuid = "UUID";
+        String oldUuid = "UUID";
         // производитель оперативной памяти
-        String ram = "RAM";
+        String manufactureRam = "RAM";
         // емкость жесткого диска
         String capacityHdd = "HDD";
         // протокол передачи гипертекста
         String http = "HTTP";
         // сокращенный uniform resource locator
-        String url = "URL";
+        String abbreviatedUrl = "URL";
         // новый идентификатор клиента
         String newClientId = "ClientID";
         // кодировка american standard code for information interchange
         String encodingAscii = "ASCII";
-        System.out.println("3. Аббревиатуры");
-        System.out.println("старый universally unique identifier = " + uuid);
-        System.out.println("производитель оперативной памяти = " + ram);
+        System.out.println("\n3. Аббревиатуры");
+        System.out.println("старый universally unique identifier = " + oldUuid);
+        System.out.println("производитель оперативной памяти = " + manufactureRam);
         System.out.println("емкость жесткого диска = " + capacityHdd);
         System.out.println("протокол передачи гипертекста = " + http);
-        System.out.println("сокращенный uniform resource locator = " + url);
+        System.out.println("сокращенный uniform resource locator = " + abbreviatedUrl);
         System.out.println("новый идентификатор клиент = " + newClientId);
-        System.out.println("кодировка american standard code for information interchange = " + encodingAscii);
-
+        System.out.println("кодировка american standard code for information interchange = " 
+            + encodingAscii);
     }
 }
