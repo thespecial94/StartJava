@@ -77,9 +77,9 @@ public class VariablesTheme {
         System.out.println("новые значения переменных: num1 = " + num1 + "; num2 = "+ num2);
         System.out.println("с помощью побитовой операции ^");
         System.out.println("исходные значения переменных: num1 = " + num1 + "; num2 = "+ num2);
-        num1 = num1 ^ num2;
-        num2 = num2 ^ num1;
-        num1 = num2 ^ num1;
+        num1 ^= num2;
+        num2 ^= num1;
+        num1 ^= num2;
         System.out.println("новые значения переменных: num1 = " + num1 + "; num2 = "+ num2);
 
         System.out.println("\n6. Вывод символов и их кодов");

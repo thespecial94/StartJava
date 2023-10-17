@@ -3,7 +3,7 @@ public class IfElseStatementTheme {
         System.out.println("\n1. Перевод псевдокода на язык Java");
         short age = 18;
         float height = 1.8f;
-        char firstSymbolName;
+        char firstSymbolName = "Magomed".charAt(0);
         String name = "Magomed";
         boolean maleGender = false;
         if (!maleGender) {
@@ -21,7 +21,6 @@ public class IfElseStatementTheme {
         } else {
             System.out.println("Рост превышает 180 см");
         }
-        firstSymbolName = name.charAt(0);
         if (firstSymbolName == 'M') {
             System.out.println("Имя начинается с буквы M");
         } else if (firstSymbolName == 'I') {
@@ -63,60 +62,52 @@ public class IfElseStatementTheme {
         System.out.println("\n4. Поиск одинаковых цифр в числах");
         int num4 = 214;
         int num5 = 224;
-        String messageDischarge = "";
-        String messageNum = "";
         int numOnes4 = num4 % 10;
         int numOnes5 = num5 % 10;
-        int numTens4 = (num4/10) % 10;
-        int numTens5 = (num5/10) % 10;
+        int numTens4 = (num4 / 10) % 10;
+        int numTens5 = (num5 / 10) % 10;
         int numHundreds4 = num4 / 100;
         int numHundreds5 = num5 / 100;
         System.out.println("Исходные числа: " + num4 + " " + num5);
         if (numHundreds4 != numHundreds5 & numOnes4 != numOnes5 & numTens4 != numTens5) {
             System.out.println("Все цифры в разрядах отличаются!");
-        }
-        else {
+        } else {
             if (numHundreds4 == numHundreds5) {
-                messageDischarge += "3";
-                messageNum += numHundreds4;
+                System.out.println("одинаковые в них цифры: " + numHundreds4);
+                System.out.println("номера разрядов: " + 3);
             }
-            if(numTens4 == numTens5) {
-                messageDischarge += " 2";
-                messageNum += " " + numTens4;
+            if (numTens4 == numTens5) {
+                System.out.println("одинаковые в них цифры: " + numTens4);
+                System.out.println("номера разрядов: " + 2);
             }
-            if(numOnes4 == numOnes5) {
-                messageDischarge += " 1";
-                messageNum += " " + numOnes4;
+            if (numOnes4 == numOnes5) {
+                System.out.println("одинаковые в них цифры: " + numOnes4);
+                System.out.println("номера разрядов: " + 1);
             }
-            System.out.println("одинаковые в них цифры: " + messageNum);
-            System.out.println("номера разрядов: " + messageDischarge);
         }
 
         System.out.println("\n5. Определение символа по его коду");
         char symbol = '\u0062';
-        String message1 = "Символ " + symbol + " является ";
-        if ((int) symbol > 64 & (int) symbol < 91) {
-            System.out.println(message1 + "большой буквой");
-        } else if ((int) symbol > 96 & (int) symbol < 123) {
-            System.out.println(message1 + "маленькой буквой");
-        } else if ((int) symbol > 47 & (int) symbol < 58) {
-            System.out.println(message1 + "цифрой");
+        if (symbol > 64 & symbol < 91) {
+            System.out.println("Символ " + symbol + " является большой буквой");
+        } else if (symbol > 96 & symbol < 123) {
+            System.out.println("Символ " + symbol + " является маленькой буквой");
+        } else if (symbol > 47 & symbol < 58) {
+            System.out.println("Символ " + symbol + " является цифрой");
         } else {
-            System.out.println(message1 + "не буквой и не цифрой");
+            System.out.println("Символ " + symbol + " является не буквой и не цифрой");
         }
 
         System.out.println("\n6. Подсчет суммы вклада и начисленных банком %");
         double deposit = 301000;
-        double accruals = 0;
-        double totalSum = 0;
+        double percent = 0.1;
+        double accruals = deposit * percent;
         if (deposit < 100000) {
             accruals = deposit * 0.05;
         } else if (deposit >= 100000 & deposit <= 300000) {
             accruals = deposit * 0.07;
-        } else {
-            accruals = deposit * 0.1;
         }
-        totalSum = deposit + accruals;
+        double totalSum = deposit + accruals;
         System.out.println("сумму вклада = " + deposit);
         System.out.println("сумма начисленного % = " + accruals);
         System.out.println("итоговая сумма с % = " + totalSum);
@@ -124,32 +115,31 @@ public class IfElseStatementTheme {
         System.out.println("\n7. Определение оценки по предметам");
         double historyPercent = 0.59;
         double programmingPercent = 0.92;
-        int countObjects = 2;
-        double avgPercent = historyPercent + programmingPercent / countObjects * 100;
-        int historyEstimation = 0;
-        int programmingEstimation = 0;
-        int avgMarkObjects = 0;
+        int historyGrade = 0;
         if (historyPercent <= 0.6) {
-            historyEstimation = 2;
+            historyGrade = 2;
         } else if (historyPercent < 0.73) {
-            historyEstimation = 3;
+            historyGrade = 3;
         } else if (historyPercent < 0.91) {
-            historyEstimation = 4;
+            historyGrade = 4;
         } else {
-            historyEstimation = 5;
+            historyGrade = 5;
         }
+        int programmingGrade = 0;
         if (programmingPercent <= 0.6) {
-            programmingEstimation = 2;
+            programmingGrade = 2;
         } else if (programmingPercent < 0.73) {
-            programmingEstimation = 3;
+            programmingGrade = 3;
         } else if (programmingPercent < 0.91) {
-            programmingEstimation = 4;
+            programmingGrade = 4;
         } else {
-            programmingEstimation = 5;
+            programmingGrade = 5;
         }
-        avgMarkObjects = (historyEstimation + programmingEstimation) / countObjects;
-        System.out.println("Оценка по истории = " + historyEstimation);
-        System.out.println("Оценка по программированию = " + programmingEstimation);
+        int countObjects = 2;
+        int avgMarkObjects = (historyGrade + programmingGrade) / countObjects;
+        double avgPercent = historyPercent + programmingPercent / countObjects * 100;
+        System.out.println("Оценка по истории = " + historyGrade);
+        System.out.println("Оценка по программированию = " + programmingGrade);
         System.out.println("Средний балл оценок по предметам = " + avgMarkObjects);
         System.out.println("Средний % по предметам = " + avgPercent + "%");
 
@@ -158,13 +148,11 @@ public class IfElseStatementTheme {
         int costPriceProduction = 9000;
         int saleGoods = 13000;
         int month = 12;
-        String strProfit = "";
-        int profit = (saleGoods * month) - (costPriceProduction + rentPremise) * month;
+        int profit = (saleGoods - (costPriceProduction + rentPremise)) * month;
         if (profit > 0) {
-            strProfit = "+" + profit;
+            System.out.println("Прибыль за год: " + "+" + profit + " руб.");
         } else {
-        strProfit += profit;
+            System.out.println("Прибыль за год: " + profit + " руб.");
         }
-        System.out.println("Прибыль за год: " + strProfit +" руб.");
     }
-} 
+}
