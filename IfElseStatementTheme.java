@@ -114,8 +114,8 @@ public class IfElseStatementTheme {
 
         System.out.println("\n7. Определение оценки по предметам");
         double historyPercent = 0.59;
-        int historyGrade = 5;
         double programmingPercent = 0.92;
+        int historyGrade = 5;
         if (historyPercent <= 0.6) {
             historyGrade = 2;
         } else if (historyPercent < 0.73) {
