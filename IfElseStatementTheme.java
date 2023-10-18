@@ -101,7 +101,6 @@ public class IfElseStatementTheme {
         System.out.println("\n6. Подсчет суммы вклада и начисленных банком %");
         int deposit = 301_000;
         int percent = 10;
-        double accruals = deposit * percent;
         if (deposit < 100_000) {
             percent = 5;
         } else if (deposit <= 300_000) {
