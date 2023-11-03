@@ -1,27 +1,25 @@
 public class Calculator {
     public static void main(String[] args) {
         int num1 = 5;
-        int num2 = 5;
+        int num2 = 3;
         int result = 0;
-        char symbol = '^';
-        if (symbol == '+') {
+        char symbolCalculation = '^';
+        if (symbolCalculation == '+') {
             result = num1 + num2;
-        } else if (symbol == '-') {
+        } else if (symbolCalculation == '-') {
             result = num1 - num2;
-        } else if (symbol == '*') {
+        } else if (symbolCalculation == '*') {
             result = num1 * num2;
-        } else if (symbol == '%') {
+        } else if (symbolCalculation == '%') {
             result = num1 % num2;
-        } else if (symbol == '/') {
+        } else if (symbolCalculation == '/') {
             result = num1 / num2;
-        } else if (symbol == '^') {
+        } else if (symbolCalculation == '^') {
             result = num1;
-            int n = num2;
-            do {
+            for(int i = num2; i > 1; i--) {
                 result *= num1;
-                n--;
-            } while (n > 1);
+            }
         }
-        System.out.println(num1 + " " + symbol + " " + num2 + " = " + result);
+        System.out.println(num1 + " " + symbolCalculation + " " + num2 + " = " + result);
     }
 }
