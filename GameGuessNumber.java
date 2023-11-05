@@ -1,8 +1,7 @@
 public class GameGuessNumber {
     public static void main(String[] args) {
-        boolean quessed = false;
         int hiddenNum = 100;
-        for (int i = 1; i < 101 && !quessed;) {
+        for (int i = 1; i < 101;) {
             if (i == hiddenNum) {
                 System.out.println("Вы победили!");
                 return;
