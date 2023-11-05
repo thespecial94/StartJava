@@ -20,25 +20,25 @@ public class CyclesTheme {
         int a = -1;
         int b = 5;
         int c = 10;
-        int maxNum = 0;
-        int minNum = 0;
+        int max = 0;
+        int min = 0;
         if (a > b) {
-            maxNum = a;
+            max = a;
         } else {
-            maxNum = b;
+            max = b;
         }
-        if (c > maxNum) {
-            maxNum = c;
+        if (c > max) {
+            max = c;
         }
         if (a < b) {
-            minNum = a;
+            min = a;
         } else {
-            minNum = b;
+            min = b;
         }
-        if (c < minNum) {
-            minNum = c;
+        if (c < min) {
+            min = c;
         }
-        for (int i = maxNum - 1; i > minNum; i--) {
+        for (int i = max - 1; i > min; i--) {
             System.out.print(i + " ");
         }
 
