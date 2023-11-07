@@ -160,8 +160,8 @@ public class CyclesTheme {
         srcNum = 143413;
         int firstHalfNum = srcNum / 1000;
         int secondHalfNum = srcNum % 1000;
-        int tmpNum4 = firstHalfNum;
-        int tmpNum5 = secondHalfNum;
+        int tmpFirstHalfNum = firstHalfNum;
+        int tmpSecondHalfNum = secondHalfNum;
         int sumFirstHalfNum = 0;
         int sumSecondHalfNum = 0;
         int lengthNum = String.valueOf(srcNum).length();
@@ -176,8 +176,8 @@ public class CyclesTheme {
         } else {
             System.out.println("Число " + srcNum + " не является счастливым");
         }
-        System.out.println("Сумма цифр " + tmpNum4 + " = " + sumFirstHalfNum + 
-                ", а сумма " + tmpNum5 + " = " + sumSecondHalfNum);
+        System.out.println("Сумма цифр " + tmpFirstHalfNum + " = " + sumFirstHalfNum + 
+                ", а сумма " + tmpSecondHalfNum + " = " + sumSecondHalfNum);
 
         System.out.println("\n10. Отображение таблицы умножения Пифагора");
         System.out.println("       Таблица   Пифагора");
