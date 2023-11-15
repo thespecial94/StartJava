@@ -1,3 +1,5 @@
+package com.startjava.lesson_1.summary;
+
 public class GameGuessNumber {
     public static void main(String[] args) {
         int hiddenNum = 100;
