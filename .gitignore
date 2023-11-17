@@ -1,3 +1,34 @@
-out
-src/com/startjava/lesson_2_3/calculator/options
-src/com/startjava/lesson_2_3/calculator/optionsj
+### IntelliJ IDEA ###
+out/
+src/com/startjava/lesson_2_3_4/calculator/options
+src/com/startjava/lesson_2_3_4/calculator/optionsj
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+/StartJava/
+/.idea/
+/StartJava.iml

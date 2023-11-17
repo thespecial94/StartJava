@@ -1,10 +1,15 @@
-package com.startjava.lesson_2_3.calculator;
+package com.startjava.lesson_2_3_4.calculator;
 
 import java.util.Scanner;
 
 public class CalculatorTest {
 
     public static void main(String[] args) {
+        int c = 7;
+ int result = 4;
+ result += ++c;
+ System.out.println(result);
+
         Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in, "cp866");
         String answer = "";
