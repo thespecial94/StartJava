@@ -5,23 +5,24 @@ import java.util.Scanner;
 public class CalculatorTest {
 
     public static void main(String[] args) {
-        int c = 7;
- int result = 4;
- result += ++c;
- System.out.println(result);
-
         Calculator calculator = new Calculator();
         Scanner scanner = new Scanner(System.in, "cp866");
         String answer = "";
+        double result = 0;
         do {
-            System.out.print("Введите первое число: ");
-            int a = scanner.nextInt();
-            System.out.print("\nВведите знак математической операции: ");
-            char operation = scanner.next().charAt(0);
-            System.out.print("\nВведите второе число: ");
-            int b = scanner.nextInt();
-            calculator.calculate(a, b, operation);
-            scanner.nextLine();
+            System.out.print("Введите математическое выражение: ");
+            String[] mathExpression = scanner.nextLine().split(" ");;
+            result = calculator.calculate(mathExpression);
+            if (result == Double.MIN_VALUE) {
+                System.out.println("Ошибка: знак " + mathExpression[1] + " не поддерживается");
+            } else {
+                System.out.print(mathExpression[0] + " " + mathExpression[1] + " " + mathExpression[2] + " = ");
+                if (result == 0) {
+                    System.out.print((int) result);
+                } else {
+                    System.out.printf("%.3f",result);
+                }
+            }
             do {
                 System.out.print("\nХотите продолжить вычисления? [yes/no]: ");
                 answer = scanner.nextLine();

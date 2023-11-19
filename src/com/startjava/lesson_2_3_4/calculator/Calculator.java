@@ -2,14 +2,14 @@ package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
 
-    public void calculate(int a, int b, char operation) {
-        int result;
+    public double calculate(String[] mathExpression) {
+        double a = Integer.parseInt(mathExpression[0]);
+        double b = Integer.parseInt(mathExpression[2]);
+        double result = 0;
+        char operation = mathExpression[1].charAt(0);
         switch (operation) {
             case '^' :
-                result = a;
-                for(int i = b; i > 1; i--) {
-                    result *= a;
-                }
+                result = (int) Math.pow(a,b);
                 break;
             case '+' :
                 result = a + b;
@@ -27,9 +27,8 @@ public class Calculator {
                 result = a / b;
                 break;
             default:
-                System.out.println("Мат. операция не поддерживается");
-                return;
+                return Double.MIN_VALUE;
         }
-        System.out.println(a + " " + operation + " " + b + " = " + result);
+        return result;
     }
 }
