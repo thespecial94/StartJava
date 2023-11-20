@@ -21,10 +21,9 @@ public class ArraysTheme {
         len = numbers.length;
         System.out.println(Arrays.toString(numbers));
         for (int i = 0; i < len; i++) {
-            len--;
-            int randomNumbers = numbers[i];
-            numbers[i] = numbers[len];
-            numbers[len] = randomNumbers;
+            int tmp = numbers[i];
+            numbers[i] = numbers[--len];
+            numbers[len] = tmp;
         }
         System.out.print("После реверса: ");
         System.out.println(Arrays.toString(numbers));
@@ -82,14 +81,14 @@ public class ArraysTheme {
     private void outputAlphabet() {
         System.out.println("\n4. Вывод алфавита лесенкой");
         len = 'Z' - 'A';
-        char[] symbolsUpperCase = new char[len + 1];
+        char[] alphabet = new char[len + 1];
         for (int i = 0; i <= len; i++) {
-            symbolsUpperCase[i] = (char) ('A' + i);
+            alphabet[i] = (char) ('A' + i);
         }
 
         String stairsAlphabet = "";
         for (int i = len; i >= 0; i--) {
-            stairsAlphabet += symbolsUpperCase[i];
+            stairsAlphabet += alphabet[i];
             System.out.println(stairsAlphabet);
         }
     }
@@ -98,16 +97,23 @@ public class ArraysTheme {
         System.out.println("\n5. Заполнение массива уникальными числами");
         int[] uniqueNumbers = new int[30];
         len = uniqueNumbers.length;
+        int counter = 1;
+        boolean similar = false;
         uniqueNumbers[0] = 60 + (int) (Math.random() * 40);
-        for (int i = 1, number = 60 + (int) (Math.random() * 40); i < len; i++) {
-            if (uniqueNumbers[i] == number || uniqueNumbers[i - 1] == number) {
-                number = 60 + (int) (Math.random() * 40);
-                i = 0;
+        do {
+            int number = 60 + (int) (Math.random() * 40);
+            for (int i = 1; i < len; i++) {
+                if (uniqueNumbers[i] == number || uniqueNumbers[i - 1] == number) {
+                    similar = true;
+                    break;
+                }
             }
-            if (uniqueNumbers[i] == 0) {
-                uniqueNumbers[i] = number;
+            if (!similar) {
+                uniqueNumbers[counter] = number;
+                counter++;
             }
-        }
+            similar = false;
+        } while (counter < len);
 
         Arrays.sort(uniqueNumbers);
         for (int i = 0; i < len; i++) {
