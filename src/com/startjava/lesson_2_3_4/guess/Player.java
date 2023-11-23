@@ -22,11 +22,11 @@ public class Player {
     }
 
     public String getNumbers() {
-        String strNumber = "";
+        String strNumbers = "";
         for (int a : Arrays.copyOf(numbers, rangeArray)) {
-            strNumber += a + " ";
+            strNumbers += a + " ";
         }
-        return strNumber;
+        return strNumbers;
     }
 
     public void setNumbers(int number) {
