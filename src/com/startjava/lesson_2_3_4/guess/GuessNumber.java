@@ -32,7 +32,7 @@ public class GuessNumber {
     }
 
     private boolean isGuessed(Player player, int number, int hiddenNumber) {
-        if (player1.getAttempts() == 10 && player2.getAttempts() == 10) {
+        if (player1.getAttempts() == player1.getLen() && player2.getAttempts() == player2.getLen()) {
             return true;
         }
         if (number == hiddenNumber) {
@@ -62,12 +62,8 @@ public class GuessNumber {
 
     private void outputNumbers(Player player) {
         System.out.print("Все названные числа игроком " + player.getName() + " = " );
-        for (int i = 0; i < player.getLen(); i++) {
-            if (player.getNumber(i) != 0) {
-                System.out.print(player.getNumber(i) + " ");
-            } else {
-                break;
-            }
+        for (int i = 0; i < player.getAttempts(); i++) {
+            System.out.print(player.getNumber(i) + " ");
         }
         System.out.println();
     }
