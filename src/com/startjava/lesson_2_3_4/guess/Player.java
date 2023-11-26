@@ -6,11 +6,14 @@ public class Player {
 
     private String name;
     private int[] numbers = new int[10];
-    private int attempts = 0;
-    private int rangeArray = 0;
+    private int attempts;
 
     public Player(String name) {
         this.name = name;
+    }
+
+    public int getLen() {
+       return numbers.length;
     }
 
     public String getName() {
@@ -21,26 +24,17 @@ public class Player {
         return attempts;
     }
 
-    public String getNumbers() {
-        String strNumbers = "";
-        for (int a : Arrays.copyOf(numbers, rangeArray)) {
-            strNumbers += a + " ";
-        }
-        return strNumbers;
+    public int getNumber(int index) {
+        return numbers[index];
     }
 
-    public void setNumbers(int number) {
-        for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i] == 0) {
-                numbers[i] = number;
-                rangeArray = i + 1;
-                break;
-            }
-        }
+    public int setNumber(int number) {
+        numbers[attempts] = number;
         attempts++;
+        return number;
     }
 
-    public void fillNumbers() {
+    public void clear() {
         Arrays.fill(numbers, 0, attempts, 0);
         attempts = 0;
     }
