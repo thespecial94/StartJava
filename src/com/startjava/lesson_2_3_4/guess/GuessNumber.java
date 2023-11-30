@@ -4,110 +4,100 @@ import java.util.Scanner;
 
 public class GuessNumber {
 
-    private Player player1;
-    private Player player2;
-    private Player player3;
-    private static final int FIRST_RANGE = 1;
+    private static final int START_RANGE = 1;
     private static final int END_RANGE = 100;
-    private Player[] players = new Player[3];
+    private static final int ROUNDS = 3;
+    private int counterAttempts;
+    private Player[] players = new Player[Player.CAPACITY];
     private Scanner scanner = new Scanner(System.in);
 
-    public GuessNumber(String name1, String name2, String name3) {
-        player1 = new Player(name1);
-        player2 = new Player(name2);
-        player3 = new Player(name3);
+    public void setPlayer(Player player, int index) {
+        players[index] = player;
     }
 
     public void play() {
         castLots();
-        int hiddenNumber = FIRST_RANGE + (int) (Math.random() * END_RANGE);
-        int count = 0;
+        int hiddenNumber = START_RANGE + (int) (Math.random() * END_RANGE);
+        int counter = 1;
         int len = players.length;
         boolean guessed = false;
-        for (int i = 0; i < len; i++) {
-            guessed = isGuessed(players[i], hiddenNumber);
-            if (guessed) {
-                break;
+        do {
+            for (Player player : players) {
+                guessed = isGuessed(player, hiddenNumber);
+                if (guessed) {
+                    counter = 3;
+                    break;
+                }
             }
-            if (i + 1 == 3 && len * len > count) {
-                i = -1;
-            }
-            count++;
-        }
-        for (int i = 0; i < len; i++) {
-            output(players[i]);
+            counter++;
+        } while (counter <= Player.CAPACITY);
+        for (Player player : players) {
+            output(player);
         }
     }
 
     private void castLots() {
-        int endRange = 3;
-        int[] elements = new int[endRange];
-        int len = elements.length;
-        for (int i = 0; i < len; i++) {
-            elements[i] = i + 1;
-        }
-        int count = 0;
-        for (int i = len - 1; i >= 0; i--) {
-            int randomNumber = 1 + (int) (Math.random() * endRange);
-            for (int j = 0; j < len - count; j++) {
-                if (elements[j] == randomNumber) {
-                    int tmpNumber = elements[i];
-                    elements[i] = elements[j];
-                    elements[j] = tmpNumber;
-                    break;
-                }
-            }
-            endRange--;
-            count++;
-        }
-        for (int i = 0; i < len; i++) {
-            players[i] = switch (elements[i]) {
-                case 1 -> player1;
-                case 2 -> player2;
-                case 3 -> player3;
-                default -> throw new IllegalArgumentException("Ошибка: игрок в указанном диапазоне не найден!");
-            };
-        }
-    }
-
-    private int inputNumber(Player player) {
-        int number;
+        int endRange = 2;
+        int counterRounds = 1;
+        int counterPosition = 0;
+        Player tmpPlayer = new Player();
         do {
-            System.out.print(player.getName() + " вводит число: ");
-            number = scanner.nextInt();
-            if (number < FIRST_RANGE || number > END_RANGE) {
-                System.out.println("Введенное число выходит за пределы полуинтервала (0, 100]");
+            for (int i = Player.CAPACITY - 1; i > 0; i--) {
+                int position = (int) (Math.random() * endRange);
+                for (Player player : players) {
+                    if (player == players[position]) {
+                        tmpPlayer = player;
+                    }
+                    if (endRange == i && counterPosition == i) {
+                        players[position] = players[endRange];
+                        players[i] = tmpPlayer;
+                    }
+                    counterPosition++;
+                }
+                counterPosition = 0;
+                endRange--;
             }
-        } while (!(number >= FIRST_RANGE && number <= END_RANGE));
-        return player.setNumber(number);
+            counterRounds++;
+            endRange = 2;
+        } while (counterRounds <= ROUNDS);
     }
 
     private boolean isGuessed(Player player, int hiddenNumber) {
         int number = inputNumber(player);
-        if (player1.getAttempts() == player1.getLen() && player2.getAttempts() == player2.getLen() &&
-                player3.getAttempts() == player3.getLen()) {
-            return true;
-        }
         if (number == hiddenNumber) {
             System.out.println("Игрок " + player.getName() + " угадал "  + number +
-                        " с "  + player.getAttempts() +  " попытки");
+                    " с "  + player.getAttempts() +  " попытки");
             return true;
+        }
+        if (player.getAttempts() == Player.CAPACITY) {
+            System.out.println("У " + player.getName() + " закончились попытки");
+            counterAttempts++;
+            if (counterAttempts == Player.CAPACITY) {
+                return true;
+            }
         }
         String lessMore = number < hiddenNumber ? " меньше " : " больше ";
         System.out.println("Число " + number + lessMore + "того, что загадал компьютер");
         return false;
     }
 
-    private void output(Player player) {
-        outputAttempts(player);
-        outputNumbers(player);
-        player.clear();
+    private int inputNumber(Player player) {
+        int number = 0;
+        String display = "no";
+        do {
+            if (display.equals("yes")) {
+                System.out.println("Введенное число " + number + " выходит за пределы полуинтервала (0, 100]");
+            }
+            System.out.print(player.getName() + " вводит число: ");
+            number = scanner.nextInt();
+            display = "yes";
+        } while (!(number >= START_RANGE && number <= END_RANGE));
+        return player.setNumber(number);
     }
 
-    private void outputAttempts(Player player) {
-        if (player.getAttempts() == player.getLen()) {
-            System.out.println("У " + player.getName() + " закончились попытки");
-        }
+    private void output(Player player) {
+        outputNumbers(player);
+        player.clear();
     }
 
     private void outputNumbers(Player player) {

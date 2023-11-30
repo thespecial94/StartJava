@@ -4,17 +4,15 @@ import java.util.Arrays;
 
 public class Player {
 
+    public static final int CAPACITY = 3;
     private String name;
-    private static final int LEN = 3;
-    private int[] numbers = new int[LEN];
+    private int[] numbers = new int[CAPACITY];
     private int attempts;
+
+    public Player() {}
 
     public Player(String name) {
         this.name = name;
-    }
-
-    public int getLen() {
-       return numbers.length;
     }
 
     public String getName() {
