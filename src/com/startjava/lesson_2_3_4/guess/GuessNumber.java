@@ -19,8 +19,7 @@ public class GuessNumber {
         castLots();
         int hiddenNumber = START_RANGE + (int) (Math.random() * END_RANGE);
         int counter = 1;
-        int len = players.length;
-        boolean guessed = false;
+        boolean guessed;
         do {
             for (Player player : players) {
                 guessed = isGuessed(player, hiddenNumber);
@@ -40,17 +39,17 @@ public class GuessNumber {
         int endRange = 2;
         int counterRounds = 1;
         int counterPosition = 0;
-        Player tmpPlayer = new Player();
+        Player tmp = new Player();
         do {
             for (int i = Player.CAPACITY - 1; i > 0; i--) {
                 int position = (int) (Math.random() * endRange);
                 for (Player player : players) {
                     if (player == players[position]) {
-                        tmpPlayer = player;
+                        tmp = player;
                     }
                     if (endRange == i && counterPosition == i) {
                         players[position] = players[endRange];
-                        players[i] = tmpPlayer;
+                        players[i] = tmp;
                     }
                     counterPosition++;
                 }
