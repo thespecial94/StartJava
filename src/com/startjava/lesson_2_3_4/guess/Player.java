@@ -28,7 +28,9 @@ public class Player {
     }
 
     public int setNumber(int number) {
-        numbers[attempts++] = number;
+        if (number >= GuessNumber.START_RANGE && number <= GuessNumber.END_RANGE) {
+            numbers[attempts++] = number;
+        }
         return number;
     }
 
