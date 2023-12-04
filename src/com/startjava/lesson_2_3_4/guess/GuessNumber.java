@@ -36,7 +36,7 @@ public class GuessNumber {
                     break;
                 }
             }
-            printWinner(nameWinner,counterRounds);
+            printWinner(nameWinner, counterRounds);
 
             clear();
             counterRounds++;
