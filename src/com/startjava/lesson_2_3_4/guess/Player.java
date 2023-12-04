@@ -7,8 +7,8 @@ public class Player {
     public static final int CAPACITY = 3;
     public static final int ATTEMPTS = 10;
     private final String name;
-    private final int[] numbers = new int[ATTEMPTS];
     private int attempts;
+    private final int[] numbers = new int[ATTEMPTS];
 
     public Player(String name) {
         this.name = name;
@@ -30,10 +30,8 @@ public class Player {
         if (number >= GuessNumber.START_RANGE && number <= GuessNumber.END_RANGE) {
             numbers[attempts++] = number;
             return true;
-        } else {
-            System.out.println("Введенное число " + number + " выходит за пределы полуинтервала (0, 100]");
-            return false;
         }
+        return false;
     }
 
     public void clear() {

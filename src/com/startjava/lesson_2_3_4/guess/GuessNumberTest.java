@@ -17,12 +17,11 @@ public class GuessNumberTest {
         } while (!answer.equals("no"));
     }
 
-    static Player[] createPlayers() {
+    private static Player[] createPlayers() {
         Player[] players = new Player[Player.CAPACITY];
         for (int i = 0; i < Player.CAPACITY; i++) {
             System.out.print("Введите имя " + (i + 1) + " игрока: ");
-            Player player = new Player(scanner.nextLine());
-            players[i] = player;
+            players[i] = new Player(scanner.nextLine());
         }
         return players;
     }
