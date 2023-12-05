@@ -9,6 +9,7 @@ public class Player {
     private final String name;
     private int attempts;
     private final int[] numbers = new int[ATTEMPTS];
+    private int countWinnerRounds;
 
     public Player(String name) {
         this.name = name;
@@ -37,5 +38,13 @@ public class Player {
     public void clear() {
         Arrays.fill(numbers, 0, attempts, 0);
         attempts = 0;
+    }
+
+    public int getCountWinnerRounds(){
+        return countWinnerRounds;
+    }
+
+    public void setCountWinnerRounds() {
+        countWinnerRounds++;
     }
 }

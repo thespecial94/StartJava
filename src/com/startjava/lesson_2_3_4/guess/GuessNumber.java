@@ -17,30 +17,27 @@ public class GuessNumber {
 
     public void play() {
         castLots();
-        int counterRounds = 1;
         System.out.println("Игра началась! У каждого игрока по " + Player.ATTEMPTS + " попыток.");
-        do {
-            boolean guessed = false;
-            String nameWinner = "";
+        boolean guessed = false;
+        for (int i = 1; i <= ROUNDS; i++) {
             int hiddenNumber = START_RANGE + (int) (Math.random() * END_RANGE);
-            for (int i = 0; i < Player.ATTEMPTS; i++) {
+            for (int j = 0; j < Player.ATTEMPTS; j++) {
                 for (Player player : players) {
                     guessed = isGuessed(player, hiddenNumber);
                     if (guessed) {
-                        nameWinner = player.getName();
+                        player.setCountWinnerRounds();
                         break;
                     }
                 }
                 if (guessed) {
-                    output();
                     break;
                 }
             }
-            printWinner(nameWinner, counterRounds);
+            output();
+            printWinner(i);
 
             clear();
-            counterRounds++;
-        } while (counterRounds <= ROUNDS);
+        }
     }
 
     private void castLots() {
@@ -54,8 +51,7 @@ public class GuessNumber {
     }
 
     private boolean isGuessed(Player player, int hiddenNumber) {
-        int number;
-        number = inputNumber(player);
+        int number= inputNumber(player);
 
         if (number == hiddenNumber) {
             System.out.println("Игрок " + player.getName() + " угадал "  + number +
@@ -67,16 +63,6 @@ public class GuessNumber {
         String lessMore = number < hiddenNumber ? " меньше " : " больше ";
         System.out.println("Число " + number + lessMore + "того, что загадал компьютер");
         return false;
-    }
-
-    private void printWinner(String name,int counterRounds) {
-        if (counterRounds == ROUNDS) {
-            if (!name.isEmpty()) {
-                System.out.println("Игрок " + name + " выйграл(а) по результатам " + ROUNDS + " раундов!!!");
-            } else {
-                System.out.println("По результатам " + ROUNDS + " раундов никто не отгадал число");
-            }
-        }
     }
 
     private int inputNumber(Player player) {
@@ -107,6 +93,64 @@ public class GuessNumber {
             }
             System.out.println();
         }
+    }
+
+    private void printWinner(int counterRounds) {
+        if (counterRounds == ROUNDS) {
+            String[] namesGuesses = searchWinners();
+            int countWinners = getCountWinners(namesGuesses);
+
+            if (countWinners == 0) {
+                System.out.println("По результатам " + ROUNDS + " раундов никто не отгадал число");
+            } else if (countWinners >= 1) {
+                String strNames = getWinnerNames(namesGuesses);
+
+                if (countWinners == 1) {
+                    System.out.println("Игрок " + strNames + " выиграл(а) по результатам " + ROUNDS + " раундов!!!");
+                } else {
+                    System.out.println("По результатам " + ROUNDS + " раундов ничья между следующими игроками: " +
+                            strNames);
+                }
+            }
+        }
+    }
+
+    private String[] searchWinners() {
+        int maxGuesses = players[0].getCountWinnerRounds();
+        String[] namesGuesses = new String[Player.CAPACITY];
+        if (maxGuesses != 0) {
+            namesGuesses[0] = players[0].getName();
+        }
+        for (int i = 1; i < Player.CAPACITY; i++) {
+            if (players[i].getCountWinnerRounds() > maxGuesses) {
+                namesGuesses[i - 1] = null;
+                maxGuesses = players[i].getCountWinnerRounds();
+                namesGuesses[i] = players[i].getName();
+            } else if (players[i].getCountWinnerRounds() == maxGuesses && maxGuesses != 0) {
+                namesGuesses[i] = players[i].getName();
+            }
+        }
+        return namesGuesses;
+    }
+
+    private int getCountWinners(String[] names) {
+        int count = 0;
+        for (String name : names) {
+            if (name != null) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private String getWinnerNames(String[] names) {
+        String strNames = "";
+        for (String name : names) {
+            if (name != null) {
+                strNames += name + " ";
+            }
+        }
+        return strNames;
     }
 
     private void clear() {
