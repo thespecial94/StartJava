@@ -4,12 +4,11 @@ import java.util.Arrays;
 
 public class Player {
 
-    public static final int CAPACITY = 3;
     public static final int ATTEMPTS = 10;
     private final String name;
     private int attempts;
     private final int[] numbers = new int[ATTEMPTS];
-    private int countWinnerRounds;
+    private int countWinner;
 
     public Player(String name) {
         this.name = name;
@@ -23,7 +22,7 @@ public class Player {
         return attempts;
     }
 
-    public int[] getNumber() {
+    public int[] getNumbers() {
         return Arrays.copyOf(numbers, attempts);
     }
 
@@ -40,15 +39,15 @@ public class Player {
         attempts = 0;
     }
 
-    public int getCountWinner(){
-        return countWinnerRounds;
+    public int getCountWinner() {
+        return countWinner;
     }
 
-    public void setCountWinnerRounds() {
-        countWinnerRounds++;
+    public void setCountWinner() {
+        countWinner++;
     }
 
     public void clearRounds() {
-        countWinnerRounds = 0;
+        countWinner = 0;
     }
 }
