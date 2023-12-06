@@ -10,6 +10,8 @@ public class GuessNumber {
     private static final int ROUNDS = 3;
     private final Player[] players = new Player[Player.CAPACITY];
     private final Scanner scanner = new Scanner(System.in);
+    private String nameWinners;
+    private int countWinners;
 
     public GuessNumber(Player[] players) {
         System.arraycopy(players, 0, this.players, 0, Player.CAPACITY);
@@ -34,10 +36,10 @@ public class GuessNumber {
                 }
             }
             output();
-            printWinner(i);
-
             clear();
         }
+        printWinner();
+        clearRounds();
     }
 
     private void castLots() {
@@ -95,67 +97,49 @@ public class GuessNumber {
         }
     }
 
-    private void printWinner(int counterRounds) {
-        if (counterRounds == ROUNDS) {
-            String[] namesGuesses = searchWinners();
-            int countWinners = getCountWinners(namesGuesses);
-
-            if (countWinners == 0) {
-                System.out.println("По результатам " + ROUNDS + " раундов никто не отгадал число");
-            } else if (countWinners >= 1) {
-                String strNames = getWinnerNames(namesGuesses);
-
-                if (countWinners == 1) {
-                    System.out.println("Игрок " + strNames + " выиграл(а) по результатам " + ROUNDS + " раундов!!!");
-                } else {
-                    System.out.println("По результатам " + ROUNDS + " раундов ничья между следующими игроками: " +
-                            strNames);
-                }
-            }
-        }
-    }
-
-    private String[] searchWinners() {
-        int maxGuesses = players[0].getCountWinnerRounds();
-        String[] namesGuesses = new String[Player.CAPACITY];
-        if (maxGuesses != 0) {
-            namesGuesses[0] = players[0].getName();
-        }
-        for (int i = 1; i < Player.CAPACITY; i++) {
-            if (players[i].getCountWinnerRounds() > maxGuesses) {
-                namesGuesses[i - 1] = null;
-                maxGuesses = players[i].getCountWinnerRounds();
-                namesGuesses[i] = players[i].getName();
-            } else if (players[i].getCountWinnerRounds() == maxGuesses && maxGuesses != 0) {
-                namesGuesses[i] = players[i].getName();
-            }
-        }
-        return namesGuesses;
-    }
-
-    private int getCountWinners(String[] names) {
-        int count = 0;
-        for (String name : names) {
-            if (name != null) {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    private String getWinnerNames(String[] names) {
-        String strNames = "";
-        for (String name : names) {
-            if (name != null) {
-                strNames += name + " ";
-            }
-        }
-        return strNames;
-    }
-
     private void clear() {
         for (Player player : players) {
             player.clear();
+        }
+    }
+
+    private void printWinner() {
+        defineWinner();
+
+        if (countWinners == 0) {
+            System.out.println("По результатам " + ROUNDS + " раундов никто не отгадал число");
+        } else if (countWinners >= 1) {
+            if (countWinners == 1) {
+                System.out.println("Игрок " + nameWinners + " выиграл(а) по результатам " + ROUNDS + " раундов!!!");
+            } else {
+                System.out.println("По результатам " + ROUNDS + " раундов ничья между следующими игроками: " +
+                        nameWinners);
+            }
+        }
+        countWinners = 0;
+    }
+
+    private void defineWinner() {
+        int maxGuesses = players[0].getCountWinner();
+        if (maxGuesses != 0) {
+            nameWinners = players[0].getName() + " ";
+            countWinners++;
+        }
+        for (int i = 1; i < Player.CAPACITY; i++) {
+            if (players[i].getCountWinner() > maxGuesses) {
+                maxGuesses = players[i].getCountWinner();
+                nameWinners = players[i].getName();
+                countWinners = 1;
+            } else if (maxGuesses == players[i].getCountWinner() && maxGuesses != 0) {
+                nameWinners += players[i].getName() + " ";
+                countWinners++;
+            }
+        }
+    }
+
+    private void clearRounds() {
+        for (Player player : players) {
+            player.clearRounds();
         }
     }
 }

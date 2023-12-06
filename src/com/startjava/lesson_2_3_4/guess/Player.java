@@ -40,11 +40,15 @@ public class Player {
         attempts = 0;
     }
 
-    public int getCountWinnerRounds(){
+    public int getCountWinner(){
         return countWinnerRounds;
     }
 
     public void setCountWinnerRounds() {
         countWinnerRounds++;
+    }
+
+    public void clearRounds() {
+        countWinnerRounds = 0;
     }
 }
