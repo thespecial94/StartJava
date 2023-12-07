@@ -1,31 +1,28 @@
 package com.startjava.graduation;
 
 public class Book {
+
     private final String author;
-    private final String name;
+    private final String title;
     private final int yearPublication;
     private final int len;
 
-    public Book(String author, String name, int yearPublication, int len) {
+    public Book(String author, String title, int yearPublication) {
         this.author = author;
-        this.name = name;
+        this.title = title;
         this.yearPublication = yearPublication;
-        this.len = len;
-    }
-
-    public String getAuthor() {
-        return author;
+        this.len = (author + title + yearPublication).length();
     }
 
     public String getName() {
-        return name;
-    }
-
-    public int getYearPublication() {
-        return yearPublication;
+        return title;
     }
 
     public int getLen() {
        return len;
+    }
+
+    public String toString() {
+        return author + ", " + title + ", " + yearPublication;
     }
 }

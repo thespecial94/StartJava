@@ -3,62 +3,46 @@ package com.startjava.graduation;
 import java.util.Arrays;
 
 public class Bookshelf {
-    public static final int ZERO = 0;
-    public static final int ONE = 1;
+
     public static final int LEN = 10;
     private final Book[] books = new Book[LEN];
-    private boolean quit = true;
-    private int currentLen;
+    private int countBooks;
     private int maxLen;
+    private int tmpIndexCurrentLen;
 
     public Book[] getBooks() {
-        return books;
+        return Arrays.copyOf(books, countBooks);
     }
 
     public int getCountFreeShelves() {
-        int countFreeShelves = ZERO;
-        for (int i = LEN - ONE; i >= ZERO; i--) {
-            if (books[i] == null) {
-                countFreeShelves++;
-            } else {
-                break;
-            }
-        }
-        return countFreeShelves;
+        return LEN - countBooks;
     }
 
     public int getCountBooks() {
-        int countBooks = ZERO;
-        for (int i = ZERO; i < LEN; i++) {
-            if (books[i] == null) {
-                break;
-            } else  {
-                countBooks++;
-            }
-        }
         return countBooks;
     }
 
-    public boolean add(String author, String name, int yearPublication) {
-        currentLen = (author + name + yearPublication).length();
-        Book book = new Book(author, name, yearPublication, currentLen);
-        for (int i = ZERO; i < LEN; i++) {
-            if (books[i] == null) {
-                books[i] = book;
-                return true;
+    public boolean add(Book book) {
+        if (countBooks < LEN) {
+            books[countBooks++] = book;
+            if (books[countBooks - 1].getLen() > maxLen) {
+                tmpIndexCurrentLen = countBooks - 1;
             }
+            return true;
         }
         return false;
     }
 
     public boolean delete(String name) {
-        for (int i = ZERO; i < LEN; i++) {
-            if (books[i] == null) {
-                break;
-            } else if (books[i].getName().equals(name)) {
-                currentLen = books[i].getLen();
-                System.arraycopy(books, i + ONE, books, i, LEN - ONE - i);
-                books[LEN - ONE] = null;
+        for (int i = 0; i < LEN; i++) {
+            if (i < countBooks && books[i].getName().equals(name)) {
+                if (maxLen == books[i].getLen()) {
+                    maxLen = 0;
+                    tmpIndexCurrentLen = 0;
+                }
+                System.arraycopy(books, i + 1, books, i, LEN - 1 - i);
+                books[LEN - 1] = null;
+                countBooks--;
                 return true;
             }
         }
@@ -66,10 +50,8 @@ public class Bookshelf {
     }
 
     public boolean find(String name) {
-        for (int i = ZERO; i < LEN; i++) {
-            if (books[i] == null) {
-                break;
-            } else if (books[i].getName().equals(name)) {
+        for (int i = 0; i < LEN; i++) {
+            if (i < countBooks && books[i].getName().equals(name) ) {
                 return true;
             }
         }
@@ -77,30 +59,23 @@ public class Bookshelf {
     }
 
     public boolean clear() {
-        if (getCountBooks() > ZERO) {
-            Arrays.fill(books, ZERO, LEN, null);
+        if (countBooks > 0) {
+            Arrays.fill(books, 0, LEN, null);
+            countBooks = 0;
+            maxLen = 0;
+            tmpIndexCurrentLen = 0;
             return true;
         }
         return false;
     }
 
-    public boolean getQuit() {
-        return quit;
-    }
-
-    public boolean setQuit(boolean quit) {
-         this.quit = quit;
-         return true;
-    }
 
     public int getMaxLen() {
-        if (getCountBooks() > ZERO) {
-            if (currentLen >= maxLen) {
-                maxLen = books[ZERO].getLen();
-                for (int i = ONE; i < LEN; i++) {
-                    if (books[i] == null) {
-                        return maxLen;
-                    } else if (books[i].getLen() > maxLen) {
+        if (countBooks > 0) {
+            if (books[tmpIndexCurrentLen].getLen() >= maxLen) {
+                maxLen = books[0].getLen();
+                for (int i = 1; i < countBooks; i++) {
+                    if (books[i].getLen() > maxLen) {
                         maxLen = books[i].getLen();
                     }
                 }
