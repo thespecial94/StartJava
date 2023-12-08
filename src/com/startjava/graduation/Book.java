@@ -11,10 +11,10 @@ public class Book {
         this.author = author;
         this.title = title;
         this.yearPublication = yearPublication;
-        this.len = (author + title + yearPublication).length();
+        len = toString().length();
     }
 
-    public String getName() {
+    public String getTitle() {
         return title;
     }
 

@@ -1,20 +1,21 @@
 package com.startjava.graduation;
 
 import java.util.Scanner;
+
 public class BookshelfTest {
 
-    static final int DELETE = 1;
-    static final int CLEAR = 2;
-    static final int ADD = 3;
-    static final int FIND = 4;
-    static final int QUIT = 5;
-    static final String INPUT_AUTHOR = "Введите имя автора: ";
-    static final String INPUT_NAME = "Введите название книги: ";
-    static final String INPUT_YEAR = "Введите год издания: ";
+    private static final int DELETE = 1;
+    private static final int CLEAR = 2;
+    private static final int ADD = 3;
+    private static final int FIND = 4;
+    private static final int QUIT = 5;
+    private static final String INPUT_AUTHOR = "Введите имя автора: ";
+    private static final String INPUT_NAME = "Введите название книги: ";
+    private static final String INPUT_YEAR = "Введите год издания: ";
     private final Scanner scanner = new Scanner(System.in);
     private boolean success = false;
     private int numberCommand;
-    private int maxLen;
+    private int lenShelves;
 
     public static void main(String[] args) {
         BookshelfTest bookshelfTest = new BookshelfTest();
@@ -128,17 +129,17 @@ public class BookshelfTest {
                 ", свободно полок - " + bookshelf.getCountFreeShelves());
         System.out.println();
         if ((numberCommand == DELETE || numberCommand == ADD) && success) {
-            maxLen = bookshelf.getMaxLen();
+            lenShelves = bookshelf.getLenShelves();
         }
-        String strDash = "-".repeat(maxLen + 4);
+        String strDash = "-".repeat(lenShelves);
         for (int i = 0; i < bookshelf.getCountBooks(); i++) {
-            String strWhiteSpace = maxLen == bookshelf.getBooks()[i].getLen() ? "" :
-                    " ".repeat(maxLen - bookshelf.getBooks()[i].getLen());
+            String strWhiteSpace = lenShelves == bookshelf.getBooks()[i].getLen() ? "" :
+                    " ".repeat(lenShelves - bookshelf.getBooks()[i].getLen());
             System.out.println("|" + bookshelf.getBooks()[i].toString() + strWhiteSpace + "|");
             System.out.println("|" + strDash + "|");
         }
         if (bookshelf.getCountBooks() > 0) {
-            System.out.println("|" + " ".repeat(maxLen + 4) + "|");
+            System.out.println("|" + " ".repeat(lenShelves) + "|");
         }
     }
 }

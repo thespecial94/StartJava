@@ -7,8 +7,7 @@ public class Bookshelf {
     public static final int LEN = 10;
     private final Book[] books = new Book[LEN];
     private int countBooks;
-    private int maxLen;
-    private int tmpIndexCurrentLen;
+    private int lenShelves;
 
     public Book[] getBooks() {
         return Arrays.copyOf(books, countBooks);
@@ -22,36 +21,39 @@ public class Bookshelf {
         return countBooks;
     }
 
+    public int getLenShelves(){
+        return lenShelves;
+    }
+
     public boolean add(Book book) {
         if (countBooks < LEN) {
             books[countBooks++] = book;
-            if (books[countBooks - 1].getLen() > maxLen) {
-                tmpIndexCurrentLen = countBooks - 1;
-            }
+            updateLenShelfs(book);
             return true;
         }
         return false;
     }
 
-    public boolean delete(String name) {
-        for (int i = 0; i < LEN; i++) {
-            if (i < countBooks && books[i].getName().equals(name)) {
-                if (maxLen == books[i].getLen()) {
-                    maxLen = 0;
-                    tmpIndexCurrentLen = 0;
+    public boolean delete(String title) {
+        for (int i = 0; i < countBooks; i++) {
+            if (books[i].getTitle().equals(title)) {
+                if (lenShelves == books[i].getLen()) {
+                    lenShelves = 0;
                 }
-                System.arraycopy(books, i + 1, books, i, LEN - 1 - i);
-                books[LEN - 1] = null;
-                countBooks--;
+                books[i] = null;
+                if (i != --countBooks) {
+                    System.arraycopy(books, i + 1, books, i, countBooks - i + 1);
+                }
+                updateLenShelfs(books[i]);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean find(String name) {
-        for (int i = 0; i < LEN; i++) {
-            if (i < countBooks && books[i].getName().equals(name) ) {
+    public boolean find(String title) {
+        for (int i = 0; i < countBooks; i++) {
+            if (books[i].getTitle().equals(title) ) {
                 return true;
             }
         }
@@ -60,27 +62,24 @@ public class Bookshelf {
 
     public boolean clear() {
         if (countBooks > 0) {
-            Arrays.fill(books, 0, LEN, null);
+            Arrays.fill(books, 0, countBooks, null);
             countBooks = 0;
-            maxLen = 0;
-            tmpIndexCurrentLen = 0;
+            lenShelves = 0;
             return true;
         }
         return false;
     }
 
-
-    public int getMaxLen() {
-        if (countBooks > 0) {
-            if (books[tmpIndexCurrentLen].getLen() >= maxLen) {
-                maxLen = books[0].getLen();
-                for (int i = 1; i < countBooks; i++) {
-                    if (books[i].getLen() > maxLen) {
-                        maxLen = books[i].getLen();
-                    }
+    public void updateLenShelfs(Book book) {
+        if (lenShelves == 0) {
+            lenShelves = books[0].getLen();
+            for (int i = 1; i < countBooks; i++) {
+                if (books[i].getLen() > lenShelves) {
+                    lenShelves = books[i].getLen();
                 }
             }
+        } else if (book != null && book.getLen() > lenShelves) {
+            lenShelves = book.getLen();
         }
-        return maxLen;
     }
 }
