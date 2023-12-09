@@ -26,9 +26,11 @@ public class Bookshelf {
     }
 
     public boolean add(Book book) {
-        if (countBooks < LEN) {
+        if (countBooks > LEN - 1) {
+            System.out.println("Шкаф полный. Необходимо очистить шкаф, либо удалить книгу!");
+        } else if (countBooks < LEN) {
             books[countBooks++] = book;
-            updateLenShelfs(book);
+            updateLenShelves(book.getLen());
             return true;
         }
         return false;
@@ -37,14 +39,12 @@ public class Bookshelf {
     public boolean delete(String title) {
         for (int i = 0; i < countBooks; i++) {
             if (books[i].getTitle().equals(title)) {
-                if (lenShelves == books[i].getLen()) {
-                    lenShelves = 0;
-                }
-                books[i] = null;
+                int currentLen = books[i].getLen();
                 if (i != --countBooks) {
                     System.arraycopy(books, i + 1, books, i, countBooks - i + 1);
                 }
-                updateLenShelfs(books[i]);
+                books[countBooks] = null;
+                updateLenShelves(currentLen);
                 return true;
             }
         }
@@ -70,16 +70,14 @@ public class Bookshelf {
         return false;
     }
 
-    public void updateLenShelfs(Book book) {
-        if (lenShelves == 0) {
+    public void updateLenShelves(int currentLen) {
+        if (lenShelves <= currentLen) {
             lenShelves = books[0].getLen();
             for (int i = 1; i < countBooks; i++) {
                 if (books[i].getLen() > lenShelves) {
                     lenShelves = books[i].getLen();
                 }
             }
-        } else if (book != null && book.getLen() > lenShelves) {
-            lenShelves = book.getLen();
         }
     }
 }
