@@ -10,22 +10,22 @@ public class BookshelfTest {
     private static final int FIND = 4;
     private static final int QUIT = 5;
     private static final String INPUT_AUTHOR = "Введите имя автора: ";
-    private static final String INPUT_NAME = "Введите название книги: ";
+    private static final String INPUT_TITLE = "Введите название книги: ";
     private static final String INPUT_YEAR = "Введите год издания: ";
+    private final Bookshelf bookshelf = new Bookshelf();
     private final Scanner scanner = new Scanner(System.in);
-    private boolean success = false;
     private int numberCommand;
     private int lenShelves;
 
     public static void main(String[] args) {
         BookshelfTest bookshelfTest = new BookshelfTest();
-        Bookshelf bookshelf = new Bookshelf();
         do {
+            bookshelfTest.outputMenu();
             try {
-                bookshelfTest.outputMenu(bookshelf);
+                bookshelfTest.printBookshelfEmpty();
                 bookshelfTest.inputMenuItem();
-                bookshelfTest.executeCommand(bookshelf);
-                bookshelfTest.output(bookshelf);
+                bookshelfTest.executeCommand();
+                bookshelfTest.output();
                 bookshelfTest.quit();
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
@@ -33,7 +33,7 @@ public class BookshelfTest {
         } while (bookshelfTest.numberCommand != QUIT);
     }
 
-    private void outputMenu(Bookshelf bookshelf) {
+    private void outputMenu() {
         System.out.println("""
                 1. Удалить книгу
                 2. Очистить шкаф
@@ -41,9 +41,6 @@ public class BookshelfTest {
                 4. Найти книгу
                 5. Завершить
                 """);
-        if (bookshelf.getCountBooks() == 0) {
-            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
-        }
     }
 
     private void inputMenuItem() {
@@ -51,57 +48,53 @@ public class BookshelfTest {
         numberCommand = Integer.parseInt(scanner.nextLine());
     }
 
-    private void executeCommand(Bookshelf bookshelf) {
+    private void executeCommand() {
         switch (numberCommand) {
-            case DELETE -> delete(bookshelf);
-            case CLEAR -> clear(bookshelf);
-            case ADD -> add(bookshelf);
-            case FIND -> find(bookshelf);
+            case DELETE -> delete();
+            case CLEAR -> clear();
+            case ADD -> add();
+            case FIND -> find();
             case QUIT -> System.out.println("Завершение процесса!");
             default -> throw new IllegalStateException("Недопустимая команда");
         }
     }
 
-    private void delete(Bookshelf bookshelf) {
-        System.out.print(INPUT_NAME);
-        success = bookshelf.delete(scanner.nextLine());
-        if (success) {
+    private void delete() {
+        System.out.print(INPUT_TITLE);
+        if (bookshelf.delete(scanner.nextLine())) {
             System.out.println("Книга удалена!");
         } else {
             System.out.println("Книга не удалена!");
         }
     }
 
-    private void clear(Bookshelf bookshelf) {
-        success = bookshelf.clear();
-        if (success) {
+    private void clear() {
+        if (bookshelf.clear()) {
             System.out.println("Шкаф очищен!");
         } else {
             System.out.println("Шкаф не очищен, так как пуст!");
         }
     }
 
-    private void add(Bookshelf bookshelf) {
+    private void add() {
         System.out.print(INPUT_AUTHOR);
         String author = scanner.nextLine();
-        System.out.print(INPUT_NAME);
+        System.out.print(INPUT_TITLE);
         String title = scanner.nextLine();
         System.out.print(INPUT_YEAR);
         int yearPublication = scanner.nextInt();
         Book book = new Book(author, title, yearPublication);
         scanner.nextLine();
-        success = bookshelf.add(book);
-        if (success) {
+        if (bookshelf.add(book)) {
             System.out.println("Книга добавлена!");
         } else {
             System.out.println("Книга не добавлена!");
         }
     }
 
-    private void find(Bookshelf bookshelf) {
-        System.out.print(INPUT_NAME);
-        success = bookshelf.find(scanner.nextLine());
-        if (success) {
+    private void find() {
+        System.out.print(INPUT_TITLE);
+        if (bookshelf.find(scanner.nextLine())) {
             System.out.println("Книга найдена!");
         } else {
             System.out.println("Книга не найдена!");
@@ -115,19 +108,24 @@ public class BookshelfTest {
         }
     }
 
-    private void output(Bookshelf bookshelf) {
+    private void printBookshelfEmpty() {
+        if (bookshelf.getCountBooks() == 0) {
+            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
+        }
+    }
+
+    private void output() {
         System.out.println("В шкафу книг - " + bookshelf.getCountBooks() +
                 ", свободно полок - " + bookshelf.getCountFreeShelves());
         System.out.println();
-        if ((numberCommand == DELETE || numberCommand == ADD) && success) {
+        if (numberCommand == DELETE || numberCommand == ADD) {
             lenShelves = bookshelf.getLenShelves();
         }
-        String strDash = "-".repeat(lenShelves);
-        for (int i = 0; i < bookshelf.getCountBooks(); i++) {
-            String strWhiteSpace = lenShelves == bookshelf.getBooks()[i].getLen() ? "" :
-                    " ".repeat(lenShelves - bookshelf.getBooks()[i].getLen());
-            System.out.println("|" + bookshelf.getBooks()[i].toString() + strWhiteSpace + "|");
-            System.out.println("|" + strDash + "|");
+        String dash = "-".repeat(lenShelves);
+        for (Book book : bookshelf.getBooks()) {
+            String whiteSpace = lenShelves == book.getLen() ? "" : " ".repeat(lenShelves - book.getLen());
+            System.out.println("|" + book + whiteSpace + "|");
+            System.out.println("|" + dash + "|");
         }
         if (bookshelf.getCountBooks() > 0) {
             System.out.println("|" + " ".repeat(lenShelves) + "|");

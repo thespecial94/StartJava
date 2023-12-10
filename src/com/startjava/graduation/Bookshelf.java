@@ -26,14 +26,15 @@ public class Bookshelf {
     }
 
     public boolean add(Book book) {
-        if (countBooks > LEN - 1) {
+        if (countBooks >= LEN) {
             System.out.println("Шкаф полный. Необходимо очистить шкаф, либо удалить книгу!");
-        } else if (countBooks < LEN) {
-            books[countBooks++] = book;
-            updateLenShelves(book.getLen());
-            return true;
+            return false;
         }
-        return false;
+        books[countBooks++] = book;
+        if (book.getLen() > lenShelves) {
+            lenShelves = book.getLen();
+        }
+        return true;
     }
 
     public boolean delete(String title) {
@@ -70,7 +71,7 @@ public class Bookshelf {
         return false;
     }
 
-    public void updateLenShelves(int currentLen) {
+    private void updateLenShelves(int currentLen) {
         if (lenShelves <= currentLen) {
             lenShelves = books[0].getLen();
             for (int i = 1; i < countBooks; i++) {
