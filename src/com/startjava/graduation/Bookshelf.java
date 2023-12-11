@@ -72,7 +72,7 @@ public class Bookshelf {
     }
 
     private void updateLenShelves(int currentLen) {
-        if (lenShelves <= currentLen) {
+        if (lenShelves == currentLen) {
             lenShelves = books[0].getLen();
             for (int i = 1; i < countBooks; i++) {
                 if (books[i].getLen() > lenShelves) {

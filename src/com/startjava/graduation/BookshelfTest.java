@@ -22,7 +22,6 @@ public class BookshelfTest {
         do {
             bookshelfTest.outputMenu();
             try {
-                bookshelfTest.printBookshelfEmpty();
                 bookshelfTest.inputMenuItem();
                 bookshelfTest.executeCommand();
                 bookshelfTest.output();
@@ -54,7 +53,7 @@ public class BookshelfTest {
             case CLEAR -> clear();
             case ADD -> add();
             case FIND -> find();
-            case QUIT -> System.out.println("Завершение процесса!");
+            case QUIT -> System.out.println("Будем рады тебя увидеть снова, процесс книжный шкаф завершается!!!");
             default -> throw new IllegalStateException("Недопустимая команда");
         }
     }
@@ -108,13 +107,9 @@ public class BookshelfTest {
         }
     }
 
-    private void printBookshelfEmpty() {
-        if (bookshelf.getCountBooks() == 0) {
-            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
-        }
-    }
-
     private void output() {
+        printBookshelfEmpty();
+
         System.out.println("В шкафу книг - " + bookshelf.getCountBooks() +
                 ", свободно полок - " + bookshelf.getCountFreeShelves());
         System.out.println();
@@ -129,6 +124,12 @@ public class BookshelfTest {
         }
         if (bookshelf.getCountBooks() > 0) {
             System.out.println("|" + " ".repeat(lenShelves) + "|");
+        }
+    }
+
+    private void printBookshelfEmpty() {
+        if (bookshelf.getCountBooks() == 0) {
+            System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу");
         }
     }
 }
