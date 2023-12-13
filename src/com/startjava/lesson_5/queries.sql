@@ -45,3 +45,7 @@ update jaegers
 delete
   from jaegers
  where status = 'Destroyed';
+
+select *
+  from jaegers
+ order by model_name;
