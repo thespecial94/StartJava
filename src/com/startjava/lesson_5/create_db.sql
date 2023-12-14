@@ -1,6 +1,6 @@
 \c robots;
 
-drop table jaegers;
+drop table if exists jaegers;
 
 create table jaegers (
     id serial primary key,
@@ -12,7 +12,8 @@ create table jaegers (
     origin text,
     launch date,
     kaiju_kill integer
-    );
+);
+end
 
 \ir init_db.sql;
 \ir queries.sql;
